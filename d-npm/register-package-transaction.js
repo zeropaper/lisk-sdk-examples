@@ -77,6 +77,37 @@ class RegisterPackageTransaction extends BaseTransaction {
   }
 
   undoAsset(store) {
+    const sender = store.account.get(this.senderId);
+
+    // Search the packages list, if a package with the name is already present.
+    let pkg = sender.asset.packages.find(item => item.name === this.asset.name);
+
+    // Rollback package registration
+    pkg = pkg.versions.length === 1 ? undefined : pkg.versions.splice(
+      pkg.versions.indexOf(this.id),
+      1,
+    );
+
+    // get the package version that needs to be removed. If only one version is in the list, simply set it to undefined.
+    pkgVersion = pkg.versions.length === 1 ? undefined : pkg.versions.find(packageVersion => packageVersion.version === this.asset.version);
+
+    // if version list is undefined, remove the package from the asset.packages list of the account. If the last package got removed, set asset.packages to undefined.
+    if (pkgVersion) {
+      pkg.versions.splice(
+          pkg.versions.indexOf(pkgVersion),
+          1,
+      );
+      sender.asset.packages[sender.asset.packages.indexOf(this.asset.name)] = pkg;
+    } else {
+      sender.asset.packages = sender.asset.packages.length < 1 ? undefined : sender.asset.packages;
+      sender.asset.packages.splice(
+          sender.asset.packages.indexOf(this.asset.name),
+        1,
+      );
+    }
+
+    //
+    store.account.set(sender.address, sender);
     return [];
   }
 
