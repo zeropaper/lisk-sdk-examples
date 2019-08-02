@@ -2,6 +2,7 @@ const { Application, genesisBlockDevnet, configDevnet } = require('lisk-sdk');
 const RegisterPackageTransaction = require('./register-package-transaction');
 
 configDevnet.app.label = 'D-NPM-application';
+configDevnet.modules.http_api.access.public = true;
 
 const app = new Application(genesisBlockDevnet, configDevnet);
 

@@ -30,8 +30,8 @@ const tx = new RegisterPackageTransaction({
 });
 
 tx.sign(
-  "wagon stock borrow episode laundry kitten salute link globe zero feed marble"
-  // "actress route auction pudding shiver crater forum liquid blouse imitate seven front"
+//  "wagon stock borrow episode laundry kitten salute link globe zero feed marble"
+   "actress route auction pudding shiver crater forum liquid blouse imitate seven front"
 );
 
 console.log(tx.stringify());
