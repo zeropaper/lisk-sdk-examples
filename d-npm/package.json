@@ -1,0 +1,19 @@
+{
+  "name": "d-npm",
+  "version": "0.0.1",
+  "description": "A decentralized package registry PoC",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@liskhq/lisk-constants": "^1.2.1",
+    "@liskhq/lisk-cryptography": "^2.1.0",
+    "@liskhq/lisk-transactions": "^2.2.0",
+    "@liskhq/lisk-validator": "0.1.0",
+    "ipfs-http-client": "^33.1.0",
+    "lisk-sdk": "^2.1.0"
+  }
+}
