@@ -1,7 +1,7 @@
 const { Application, genesisBlockDevnet, configDevnet } = require('lisk-sdk');
 const RegisterPackageTransaction = require('./register-package-transaction');
 
-configDevnet.app.label = 'Cashback-blockchain-application';
+configDevnet.app.label = 'D-NPM-application';
 
 const app = new Application(genesisBlockDevnet, configDevnet);
 
