@@ -17,9 +17,9 @@ const getTimestamp = () => {
 
 const tx = new RegisterPackageTransaction({
   asset: {
-    name: "hello-world",
-    version: "1.0.1",
-    hash: "abcdf"
+    name: "lisk-antora-ui",
+    version: "0.0.1",
+    hash: "QmXX4G6DMufNNk8YsXL5jGSyHFjc6y9gkf4dpF5uSAKQ1p"
   },
   //fee: `${transactions.utils.convertLSKToBeddows('1')}`,
   // recipientId: '10881167371402274308L', //delegate genesis_100
