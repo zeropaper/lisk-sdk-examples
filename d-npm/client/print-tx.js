@@ -17,9 +17,18 @@ const getTimestamp = () => {
 
 const tx = new RegisterPackageTransaction({
   asset: {
-    name: "lisk-antora-ui",
-    version: "0.0.1",
-    hash: "QmXX4G6DMufNNk8YsXL5jGSyHFjc6y9gkf4dpF5uSAKQ1p"
+    name: "my-package",
+    version: "0.2.3",
+    hash: "QmNxfyMgkTgpvB9WjteQZUfmD66v2oeCCAhqrDo3vg3NUA",
+    //hash: "QmPipKX8tNkr1d2CYDEY7HMr5VipP9dfRtQQUGDNcEAaXU",
+    //hash: "QmQfF73qscbFh441WoYVpaQKTFekU5VNmTUWYydn6buNVq",
+    //hash: "QmaRn1KPrM3SPfZsUu6g47iTviN2Xxte6rAc5PbdxTZUGp",
+    //hash: "Qmf9rESV2vCHsy534Upe1d1BoApXmNsCc3ya2yt7Eb755N",
+    //hash: "QmeHqo8itt8xemv6LB9GrQ4iLtpJyCq87nCwyyU9DWDGmn",
+    //hash: "QmcSsFettYxTi4i23cLatfH41swoKgpu5RgYVB74bX9mgu",
+   // hash:"QmS16eQAXTR5pLXZr3XsT3YiEk7tEjzNAfwLJhLEM5evnp"
+   // hash: "QmVjpMZtRMdZSXPgmQezq8oUt5UqHNjzwVTWpvxhXiGbtS"
+    //hash: "QmXX4G6DMufNNk8YsXL5jGSyHFjc6y9gkf4dpF5uSAKQ1p"
   },
   //fee: `${transactions.utils.convertLSKToBeddows('1')}`,
   // recipientId: '10881167371402274308L', //delegate genesis_100

@@ -1,6 +1,10 @@
 const {
   transactions: { BaseTransaction, TransactionError }
 } = require("lisk-sdk");
+const ipfsClient = require('ipfs-http-client');
+const util = require('util');
+
+const ipfs = ipfsClient('ipfs.infura.io', '5001', { protocol: 'https' });
 
 class RegisterPackageTransaction extends BaseTransaction {
   static get TYPE() {
@@ -10,6 +14,8 @@ class RegisterPackageTransaction extends BaseTransaction {
   static get FEE() {
     return `0`;
   }
+
+
 
   applyAsset(store) {
     const errors = [];
@@ -70,10 +76,87 @@ class RegisterPackageTransaction extends BaseTransaction {
 
     // verify against ipfs,
     // package.json should contain the publicKey of the owner
+    const packageJsonHash = this.asset.hash + "/package.json";
 
-    // update the account in the database with the new package version.
-    store.account.set(sender.address, sender);
-    return errors;
+    /*function getStuffAsync(param) {
+        return new Promise(function(resolve, reject) {
+            getStuff(param, function(err, data) {
+                if (err !== null) reject(err);
+                else resolve(data);
+            });
+        });
+    }*/
+    debugger;
+    const ipfsGet = util.promisify(ipfs.get);
+
+    async function callIpfsGet(x) {
+        let files;
+        try {
+            files = await ipfsGet(packageJsonHash);
+
+        }
+        catch(error) {
+            if (!files || files.length < 1) {
+                errors.push(new TransactionError("No files found under provided hash."));
+            };
+        }
+        for(var i = 0; i < files.length; i++) {
+        //files.forEach((file) => {
+            console.log(files[i].path);
+            if (!files[i].content) {
+                errors.push(new TransactionError("No package.json file found unde provided hash."));
+                break;
+            };
+            let packageJson = JSON.parse(files[i].content.toString('utf8'));
+            console.log("name");
+            console.log(packageJson.name);
+            console.log(packageJson.version);
+            if (!packageJson.publicKey) {
+                errors.push(new TransactionError("No publicKey found in package.json file."));
+                break;
+            }
+            if (packageJson.publicKey !== this.senderPublicKey) {
+                errors.push(new TransactionError("Publickey in package.json does not match the senders publicKey."));
+                break;
+            }
+            //console.log("TO STRING");
+            //console.log(file.content.toString('utf8'));
+            //update the account in the database with the new package version.
+            store.account.set(sender.address, sender);
+
+        };//);
+        return errors;
+    }
+
+    return callIpfsGet();
+
+    /*return ipfs.get(packageJsonHash, function (err, files) {
+        files.forEach((file) => {
+            console.log(file.path);
+            if (file.content) {
+              const packageJson = JSON.parse(file.content.toString('utf8'));
+              console.log("name");
+              console.log(packageJson.name);
+              console.log(packageJson.version);
+              if (!packageJson.publicKey) {
+                  errors.push(new TransactionError("No publicKey found in package.json file."));
+                  return errors;
+              }
+              if (packageJson.publicKey !== this.senderPublicKey) {
+                  errors.push(new TransactionError("Publickey in package.json does not match the senders publicKey."));
+                  return errors;
+              }
+              //console.log("TO STRING");
+              //console.log(file.content.toString('utf8'));
+              //update the account in the database with the new package version.
+              store.account.set(sender.address, sender);
+              //return errors;
+            };
+        });
+        return errors;
+    });*/
+
+
   }
 
   undoAsset(store) {
