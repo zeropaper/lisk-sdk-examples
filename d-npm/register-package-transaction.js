@@ -167,7 +167,8 @@ class RegisterPackageTransaction extends BaseTransaction {
         ]);
         const packageJsonHash = this.asset.hash + "/package.json";
 
-        //debugger;
+        // This is an undeterministic way to get information about the package in IPFS, that we want to publish.
+        // Better solution: Use ans oracle service to determine, if a node accepts or rejects a transaction.
         const ipfsGet = util.promisify(ipfs.get);
 
         try {
