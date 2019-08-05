@@ -19,7 +19,8 @@ const tx = new RegisterPackageTransaction({
   asset: {
     name: "my-package",
     version: "0.2.3",
-    hash: "QmNxfyMgkTgpvB9WjteQZUfmD66v2oeCCAhqrDo3vg3NUA",
+    hash: "QmNnVQ43sXwufDS2b8uTh8Jb4KVxBgwGvth54ErDJ6MxzW",
+    //hash: "QmNxfyMgkTgpvB9WjteQZUfmD66v2oeCCAhqrDo3vg3NUA",
     //hash: "QmPipKX8tNkr1d2CYDEY7HMr5VipP9dfRtQQUGDNcEAaXU",
     //hash: "QmQfF73qscbFh441WoYVpaQKTFekU5VNmTUWYydn6buNVq",
     //hash: "QmaRn1KPrM3SPfZsUu6g47iTviN2Xxte6rAc5PbdxTZUGp",
