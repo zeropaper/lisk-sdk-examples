@@ -83,6 +83,7 @@ class RegisterPackageTransaction extends BaseTransaction {
         let files = this.ipfsFiles;
         if (!files || files.length < 1) {
             errors.push(new TransactionError("No files found under provided hash."));
+            return errors;
         }
         for (var i = 0; i < files.length; i++) {
             //files.forEach((file) => {
