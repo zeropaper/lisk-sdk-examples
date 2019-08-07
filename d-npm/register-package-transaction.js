@@ -4,7 +4,9 @@ const {
 const ipfsClient = require('ipfs-http-client');
 const util = require('util');
 
-const ipfs = ipfsClient('ipfs.infura.io', '5001', { protocol: 'https' });
+//We should set up our own IPFS node
+//const ipfs = ipfsClient('ipfs.infura.io', '5001', { protocol: 'https' });
+const ipfs = ipfsClient('localhost', '5001', { protocol: 'https' });
 
 class RegisterPackageTransaction extends BaseTransaction {
     static get TYPE() {
@@ -75,8 +77,6 @@ class RegisterPackageTransaction extends BaseTransaction {
 
         // verify against ipfs,
         // package.json should contain the publicKey of the owner
-        //debugger;
-
         if (this.errors) {
             errors = errors.concat(this.errors);
         };
@@ -86,17 +86,13 @@ class RegisterPackageTransaction extends BaseTransaction {
             return errors;
         }
         for (var i = 0; i < files.length; i++) {
-            //files.forEach((file) => {
-            console.log(files[i].path);
+            //console.log(files[i].path);
             if (!files[i].content) {
-                errors.push(new TransactionError("No package.json file found unde provided hash."));
+                errors.push(new TransactionError("No package.json file found under provided hash."));
                 break;
             }
             ;
             let packageJson = JSON.parse(files[i].content.toString('utf8'));
-            console.log("name");
-            console.log(packageJson.name);
-            console.log(packageJson.version);
             if (!packageJson.publicKey) {
                 errors.push(new TransactionError("No publicKey found in package.json file."));
                 break;
@@ -105,13 +101,9 @@ class RegisterPackageTransaction extends BaseTransaction {
                 errors.push(new TransactionError("Publickey in package.json does not match the senders publicKey."));
                 break;
             }
-            //console.log("TO STRING");
-            //console.log(file.content.toString('utf8'));
             //update the account in the database with the new package version.
             store.account.set(sender.address, sender);
-
         };
-
         return errors;
     }
 
@@ -168,8 +160,6 @@ class RegisterPackageTransaction extends BaseTransaction {
         ]);
         const packageJsonHash = this.asset.hash + "/package.json";
 
-        // This is an undeterministic way to get information about the package in IPFS, that we want to publish.
-        // Better solution: Use ans oracle service to determine, if a node accepts or rejects a transaction.
         const ipfsGet = util.promisify(ipfs.get);
 
         try {

@@ -8,7 +8,8 @@ if (!pkg) {
     );
 }
 
-const ipfs = ipfsClient('ipfs.infura.io', '5001', { protocol: 'https' });
+//const ipfs = ipfsClient('ipfs.infura.io', '5001', { protocol: 'https' });
+const ipfs = ipfsClient('localhost', '5001', { protocol: 'http' });
 
 
 

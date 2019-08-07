@@ -30,6 +30,8 @@ const tx = new RegisterPackageTransaction({
    // hash:"QmS16eQAXTR5pLXZr3XsT3YiEk7tEjzNAfwLJhLEM5evnp"
    // hash: "QmVjpMZtRMdZSXPgmQezq8oUt5UqHNjzwVTWpvxhXiGbtS"
     //hash: "QmXX4G6DMufNNk8YsXL5jGSyHFjc6y9gkf4dpF5uSAKQ1p"
+      //Qmd9UfYXskDJtXkS6UptmKf2tbJnNgKDuELH9jeR6JbF8J
+      //QmNnVQ43sXwufDS2b8uTh8Jb4KVxBgwGvth54ErDJ6MxzW
   },
   //fee: `${transactions.utils.convertLSKToBeddows('1')}`,
   // recipientId: '10881167371402274308L', //delegate genesis_100
