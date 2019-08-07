@@ -33,6 +33,35 @@ class RegisterPackageTransaction extends BaseTransaction {
             return errors;
         }
 
+        // verify against ipfs,
+        // package.json should contain the publicKey of the owner
+        if (this.errors) {
+            errors = errors.concat(this.errors);
+        };
+        let files = this.ipfsFiles;
+        if (!files || files.length < 1 ) {
+            errors.push("No files found under provided hash.");
+            return errors;
+        }
+        const file = files[0];
+        console.log(file.path);
+        //for (var i = 0; i < files.length; i++) {
+            //console.log(files[i].path);
+        if (!file.content) {
+            errors.push(new TransactionError("No package.json file found under provided hash."));
+            return errors;
+        };
+        let packageJson = JSON.parse(file.content.toString('utf8'));
+        if (!packageJson.publicKey) {
+            errors.push(new TransactionError("No publicKey found in package.json file."));
+            return errors;
+        }
+        if (packageJson.publicKey !== this.senderPublicKey) {
+            errors.push(new TransactionError("Publickey in package.json does not match the senders publicKey."));
+            return errors;
+        }
+
+
         // the sender is the owner of the package.
         const sender = store.account.get(this.senderId);
 
@@ -47,7 +76,7 @@ class RegisterPackageTransaction extends BaseTransaction {
         // if the package name is not present already, it is created newly.
         if (!pkg) {
             pkg = {
-                name: this.asset.name,
+                name: packageJson.name,
                 versions: []
             };
 
@@ -61,7 +90,7 @@ class RegisterPackageTransaction extends BaseTransaction {
          */
         const versionObj = pkg.versions.find(
             item =>
-                item.hash === this.asset.hash || item.version === this.asset.version
+                item.hash === this.asset.hash || item.version === packageJson.version
         );
 
         if (versionObj) {
@@ -71,39 +100,11 @@ class RegisterPackageTransaction extends BaseTransaction {
 
         // create a new version object with IPFS hash in the version list of the package
         pkg.versions.push({
-            version: this.asset.version,
+            version: packageJson.version,
             hash: this.asset.hash
         });
-
-        // verify against ipfs,
-        // package.json should contain the publicKey of the owner
-        if (this.errors) {
-            errors = errors.concat(this.errors);
-        };
-        let files = this.ipfsFiles;
-        if (!files || files.length < 1) {
-            errors.push(new TransactionError("No files found under provided hash."));
-            return errors;
-        }
-        for (var i = 0; i < files.length; i++) {
-            //console.log(files[i].path);
-            if (!files[i].content) {
-                errors.push(new TransactionError("No package.json file found under provided hash."));
-                break;
-            }
-            ;
-            let packageJson = JSON.parse(files[i].content.toString('utf8'));
-            if (!packageJson.publicKey) {
-                errors.push(new TransactionError("No publicKey found in package.json file."));
-                break;
-            }
-            if (packageJson.publicKey !== this.senderPublicKey) {
-                errors.push(new TransactionError("Publickey in package.json does not match the senders publicKey."));
-                break;
-            }
-            //update the account in the database with the new package version.
-            store.account.set(sender.address, sender);
-        };
+        //update the account in the database with the new package version.
+        store.account.set(sender.address, sender);
         return errors;
     }
 
