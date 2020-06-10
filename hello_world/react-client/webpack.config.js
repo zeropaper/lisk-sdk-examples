@@ -1,7 +1,8 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-/*const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
-const { SourceMapDevToolPlugin } = require('webpack');*/
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const { SourceMapDevToolPlugin } = require('webpack');
 module.exports = {
+  entry: './src/index.js',
   module: {
     rules: [
       {
@@ -47,9 +48,9 @@ module.exports = {
             template: paths.appHtml,
           },
       )),*/
-/*    new AntdDayjsWebpackPlugin(),
+    new AntdDayjsWebpackPlugin(),
     new SourceMapDevToolPlugin({
       filename: '[name].js.map',
-    })*/
+    })
 ],
 };
