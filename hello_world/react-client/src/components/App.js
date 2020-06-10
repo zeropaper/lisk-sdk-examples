@@ -14,7 +14,6 @@ import SendHello from './Hello';
 import Transactions from './Transactions';
 import HelloTransactions from './HelloTransactions';
 import Blocks from './Blocks';
-
 // The pages of this site are rendered dynamically
 // in the browser (not server rendered).
 

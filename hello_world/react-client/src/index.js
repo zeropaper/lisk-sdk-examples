@@ -4,7 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-
+//import * as BrowserBuffer from "buffer";
+//console.dir("BBrowserBuffer");
+//console.dir(BrowserBuffer);
+//if (typeof global.Buffer === 'undefined') { global.Buffer = BrowserBuffer.Buffer }
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

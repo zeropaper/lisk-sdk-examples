@@ -7,6 +7,7 @@ const newCredentials = () => {
     const keys = cryptography.getPrivateAndPublicKeyFromPassphrase(
         passphrase
     );
+    console.dir(keys);
     const credentials = {
         address: cryptography.getAddressFromPublicKey(keys.publicKey),
         passphrase: passphrase,

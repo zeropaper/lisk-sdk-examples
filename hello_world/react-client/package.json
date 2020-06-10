@@ -2,26 +2,33 @@
   "name": "react-client",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.14"
+  },
   "dependencies": {
-    "@liskhq/lisk-api-client": "^3.0.1",
-    "@liskhq/lisk-cryptography": "^2.4.2",
-    "@liskhq/lisk-passphrase": "^3.0.0",
-    "@liskhq/lisk-transactions": "^3.0.2",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "lisk-hello-transactions": "file:../transactions",
+    "@liskhq/lisk-api-client": "^4.0.0-alpha.0",
+    "@liskhq/lisk-cryptography": "^2.5.0-alpha.0",
+    "@liskhq/lisk-passphrase": "^3.0.1-alpha.0",
+    "@liskhq/lisk-transactions": "^4.0.0-alpha.0",
     "bootstrap": "^4.4.1",
+    "lisk-hello-transactions": "file:../transactions",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-router-dom": "^5.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
