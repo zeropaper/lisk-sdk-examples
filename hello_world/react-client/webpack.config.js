@@ -1,6 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
-const { SourceMapDevToolPlugin } = require('webpack');
+/*const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const { SourceMapDevToolPlugin } = require('webpack');*/
 module.exports = {
   module: {
     rules: [
@@ -26,20 +26,6 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader','css-loader']
       },
-      {
-        test: /\.less$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "less-loader"
-          }
-        ]
-      },
     ]
   },
   node: {
@@ -49,12 +35,21 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './public/index.html',
+      template: './src/index.html',
       filename: './index.html',
     }),
-    new AntdDayjsWebpackPlugin(),
+  // Generates an `index.html` file with the <script> injected.
+/*  new HtmlWebpackPlugin(
+      Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.appHtml,
+          },
+      )),*/
+/*    new AntdDayjsWebpackPlugin(),
     new SourceMapDevToolPlugin({
       filename: '[name].js.map',
-    }),
+    })*/
 ],
 };
