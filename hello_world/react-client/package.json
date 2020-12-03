@@ -23,7 +23,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@liskhq/lisk-client": "^4.0.0-debug.0",
+    "@liskhq/lisk-client": "^4.0.0",
     "lisk-hello-transactions": "file:../transactions",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
