@@ -1,6 +1,9 @@
-import { transactions, codec, cryptography } from "@liskhq/lisk-client";
+//import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { getFullAssetSchema, calcMinTxFee } from "../utils";
 import { fetchAccountInfo } from "../api";
+import * as transactions from '@liskhq/lisk-transactions';
+import * as codec from '@liskhq/lisk-codec';
+import * as cryptography from '@liskhq/lisk-cryptography';
 
 export const transferAssetSchema = {
   $id: "lisk/transfer-asset",
@@ -43,7 +46,7 @@ export const transfer = async ({
     sequence: { nonce },
   } = await fetchAccountInfo(address.toString("hex"));
 
-  const { id, ...rest } = transactions.signTransaction(
+  const tx = transactions.signTransaction(
     transferAssetSchema,
     {
       moduleID: 2,
@@ -60,10 +63,20 @@ export const transfer = async ({
     Buffer.from(networkIdentifier, "hex"),
     passphrase
   );
+  const { id, ...rest } = tx;
+
+  const schema = getFullAssetSchema(transferAssetSchema);
+  console.log('schema');
+  console.log(schema);
+  console.log('rest');
+  console.log(rest);
+  const json = codec.codec.toJSON(schema, rest);
+  const bin = codec.codec.encode(schema,rest);
 
   return {
     id: id.toString("hex"),
-    tx: codec.codec.toJSON(getFullAssetSchema(transferAssetSchema), rest),
+    tx: json,
     minFee: calcMinTxFee(transferAssetSchema, minFeePerByte, rest),
+    binaryHex: bin
   };
 };

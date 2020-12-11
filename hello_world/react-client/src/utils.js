@@ -27,7 +27,7 @@ export const baseAssetSchema = {
             fieldNumber: 5,
         },
         asset: {
-            dataType: 'bytes',
+            dataType: 'object',
             fieldNumber: 6,
         },
         signatures: {

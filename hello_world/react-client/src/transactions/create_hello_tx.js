@@ -1,6 +1,9 @@
-import { transactions, codec, cryptography } from "@liskhq/lisk-client";
+//import { transactions, codec, cryptography } from "@liskhq/lisk-client";
 import { fetchAccountInfo } from "../api";
 import { baseAssetSchema, getFullAssetSchema } from "../utils";
+import * as transactions from '@liskhq/lisk-transactions';
+import * as codec from '@liskhq/lisk-codec';
+import * as cryptography from '@liskhq/lisk-cryptography';
 
 export const createHelloTxSchema = {
     $id: "lisk/create-hello-asset",

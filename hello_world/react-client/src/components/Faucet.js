@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import * as api from '../api.js';
 import accounts from '../accounts.json';
 import { transfer } from '../transactions/transfer';
+import { getFullAssetSchema } from "../utils";
+
 
 class Faucet extends Component {
 
@@ -36,8 +38,13 @@ class Faucet extends Component {
         });
 
         await api.sendTransactions(res.tx).then((response) => {
+          console.log(res.binaryHex);
             this.setState({
-              transaction:res.tx,
+              transaction: {
+                ...res.tx,
+                id: res.id,
+                minFee: res.minFee.toString()
+              },
               response: { status: response.status, message: response.statusText}
             });
         });

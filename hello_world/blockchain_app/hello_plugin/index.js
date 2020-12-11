@@ -38,6 +38,18 @@ class HelloAPIPlugin extends BasePlugin {
     channel.subscribe('hello:newHello', (info) => {
       this._hello = info;
     });
+    channel.subscribe("app:ready", (res) => {
+      this._ready = res;
+    });
+    channel.subscribe("app:shutdown", (res) => {
+      this._shutdown = res;
+    });
+    channel.subscribe("app:block:new", (res) => {
+      this._blocknew = res;
+    });
+    channel.subscribe("app:transaction:new", (res) => {
+      this._txnew = res;
+    });
 
     channel.once("app:ready", () => {
       this._app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT"] }));
@@ -47,6 +59,60 @@ class HelloAPIPlugin extends BasePlugin {
         const counter = await channel.invoke("hello:amountOfHellos");
 
         await res.json({ data: counter });
+      });
+
+      this._app.get("/api/getLastBlock", async (_req, res) => {
+        const getLastBlock = await channel.invoke("app:getLastBlock");
+
+        await res.json({ data: getLastBlock });
+      });
+      this._app.get("/api/getAccount", async (_req, res) => {
+        const getAccount = await channel.invoke("app:getAccount",{ address: "7c1facd5a55044f4b2ec3329b8ae8382959d4d7e"});
+
+        await res.json({ data: getAccount });
+      });
+      this._app.get("/api/getAccounts", async (_req, res) => {
+        const getAccounts = await channel.invoke("app:getAccounts",{ address: ["7c1facd5a55044f4b2ec3329b8ae8382959d4d7e"]});
+
+        await res.json({ data: getAccounts });
+      });
+      this._app.get("/api/getBlockByHeight", async (_req, res) => {
+        const getBlockByHeight = await channel.invoke("app:getBlockByHeight",{ height: "123"});
+
+        await res.json({ data: getBlockByHeight });
+      });
+      this._app.get("/api/getBlocksByHeightBetween", async (_req, res) => {
+        const getBlocksByHeightBetween = await channel.invoke("app:getBlocksByHeightBetween",{ from: "299", to: "302" });
+
+        await res.json({ data: getBlocksByHeightBetween });
+      });
+      this._app.get("/api/updateForgingStatus", async (_req, res) => {
+        const updateForgingStatus = await channel.invoke(
+          "app:updateForgingStatus",
+          {
+            address: "7c1facd5a55044f4b2ec3329b8ae8382959d4d7e",
+            password: "string",
+            forging: true
+          });
+
+        await res.json({ data: updateForgingStatus });
+      });
+      this._app.get("/api/ready", async (_req, res) => {
+
+
+        await res.json({ data: this._ready });
+      });
+      this._app.get("/api/shutdown", async (_req, res) => {
+
+        await res.json({ data: this._shutdown });
+      });
+      this._app.get("/api/block_new", async (_req, res) => {
+
+        await res.json({ data: this._blocknew});
+      });
+      this._app.get("/api/tx_new", async (_req, res) => {
+
+        await res.json({ data: this._txnew });
       });
 
       // Gets the latest hello message.
