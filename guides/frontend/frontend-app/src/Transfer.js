@@ -9,7 +9,8 @@ const Transfer = () => {
         fee: '',
         passphrase: '',
         transaction: {},
-        response: {}
+        response: {},
+        data: {}
     });
 
     const handleChange = (event) => {
@@ -18,6 +19,26 @@ const Transfer = () => {
             ...state,
             [name]: value,
         });
+    };
+
+    const handleClick = async (e) => {
+      e.preventDefault();
+      const client = await api.getClient();
+
+      //const data = client.invoke('monitor:getBlockStats')
+      client.invoke('monitor:getBlockStats').then((val) => {
+        console.log("asynchronous logging has val:",val);
+        updateState({
+          ...state,
+          data: val
+        });
+      });
+    };
+
+    const handleClick2 = async (e) => {
+      e.preventDefault();
+      console.log('data');
+      console.log(state.data);
     };
 
     const handleSubmit = async (event) => {
@@ -56,6 +77,12 @@ const Transfer = () => {
         <div>
             <h2>Transfer</h2>
             <p>Send tokens from one account to another.</p>
+            <a href="#" onClick={handleClick}>
+              Click me
+            </a>
+            <a href="#" onClick={handleClick2}>
+              console log
+            </a>
             <form onSubmit={handleSubmit}>
                 <label>
                     Recipient:
@@ -79,6 +106,11 @@ const Transfer = () => {
                 <div>
                     <pre>Transaction: {JSON.stringify(state.transaction, null, 2)}</pre>
                     <pre>Response: {JSON.stringify(state.response, null, 2)}</pre>
+                </div>
+            }
+            {state.data &&
+                <div>
+                    <pre>data: {JSON.stringify(state.data, null, 2)}</pre>
                 </div>
             }
         </div>
