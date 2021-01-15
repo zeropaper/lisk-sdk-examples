@@ -26,7 +26,7 @@ const Transfer = () => {
       const client = await api.getClient();
 
       //const data = client.invoke('monitor:getBlockStats')
-      client.invoke('monitor:getBlockStats').then((val) => {
+      client.invoke('monitor:getTransactionStats').then((val) => {
         console.log("asynchronous logging has val:",val);
         updateState({
           ...state,
