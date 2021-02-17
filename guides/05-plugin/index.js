@@ -1,5 +1,6 @@
 const { Application, genesisBlockDevnet, configDevnet, utils } = require('lisk-sdk');
 const { MyPlugin } = require('./my-plugin.js');
+const { TimestampPlugin } = require('./timestamp-plugin.js');
 
 // Create a custom config based on the configDevnet
 const appConfig = utils.objects.mergeDeep({}, configDevnet, {
@@ -21,6 +22,7 @@ const appConfig = utils.objects.mergeDeep({}, configDevnet, {
 const app = Application.defaultApplication(genesisBlockDevnet, appConfig);
 
 app.registerPlugin(MyPlugin);
+app.registerPlugin(TimestampPlugin);
 
 app
   .run()
