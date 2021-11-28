@@ -134,7 +134,7 @@ export default function NFTToken(props) {
             />
           </>
         ) : (
-          <Typography variant="body">Can't purchase this token</Typography>
+          <Typography variant="body1">Can't purchase this token</Typography>
         )}
       </CardActions>
     </Card>
