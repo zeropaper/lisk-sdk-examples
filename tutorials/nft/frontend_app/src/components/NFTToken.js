@@ -51,20 +51,18 @@ export default function NFTToken(props) {
         <Typography variant="h6">{props.item.name}</Typography>
         <Divider />
         <dl className={classes.propertyList}>
-          <li>
-            <dt>Token ID</dt>
-            <dd>{props.item.id}</dd>
-          </li>
-          <li>
-            <dt>Token value</dt>
-            <dd>{transactions.convertBeddowsToLSK(props.item.value)}</dd>
-          </li>
-          <li>
-            <dt>Minimum Purchase Margin</dt>
-            <dd>{props.item.minPurchaseMargin}</dd>
-          </li>
+
+          <dt>Token ID</dt>
+          <dd>{props.item.id}</dd>
+
+          <dt>Token value</dt>
+          <dd>{transactions.convertBeddowsToLSK(props.item.value)}</dd>
+
+          <dt>Minimum Purchase Margin</dt>
+          <dd>{props.item.minPurchaseMargin}</dd>
+
           {!props.minimum && (
-            <li>
+            <>
               <dt>Current Owner</dt>
               <dd>
                 <Link
@@ -74,14 +72,13 @@ export default function NFTToken(props) {
                   {base32UIAddress}
                 </Link>
               </dd>
-            </li>
+            </>
           )}
         </dl>
         <Typography variant="h6">NFT History</Typography>
         <Divider />
         {props.item.tokenHistory.map((base32UIAddress) => (
           <dl className={classes.propertyList} key={base32UIAddress}>
-            <li>
               <dd>
                 <Link
                   component={RouterLink}
@@ -90,7 +87,6 @@ export default function NFTToken(props) {
                   {base32UIAddress}
                 </Link>
               </dd>
-            </li>
           </dl>
         ))}
 

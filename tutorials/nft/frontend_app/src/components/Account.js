@@ -52,16 +52,16 @@ export default function Account(props) {
       <Typography variant="h5">{base32UIAddress}</Typography>
       <Divider />
       <dl className={classes.propertyList}>
-        <li>
-          <dt>Balance</dt>
-          <dd>
-            {transactions.convertBeddowsToLSK(props.account.token.balance)}
-          </dd>
-          <dt>Nonce</dt>
-          <dd>{props.account.sequence.nonce}</dd>
-          <dt>Binary address</dt>
-          <dd>{props.account.address}</dd>
-        </li>
+        <dt>Balance</dt>
+        <dd>
+          {transactions.convertBeddowsToLSK(props.account.token.balance)}
+        </dd>
+
+        <dt>Nonce</dt>
+        <dd>{props.account.sequence.nonce}</dd>
+
+        <dt>Binary address</dt>
+        <dd>{props.account.address}</dd>
       </dl>
       <Typography variant="h6">{"NFTs"}</Typography>
       <Grid container spacing={4}>
