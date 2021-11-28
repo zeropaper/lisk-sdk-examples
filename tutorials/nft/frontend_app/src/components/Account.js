@@ -66,8 +66,8 @@ export default function Account(props) {
       <Typography variant="h6">{"NFTs"}</Typography>
       <Grid container spacing={4}>
         {nftTokens.map((item) => (
-          <Grid item md={3}>
-            <NFTToken item={item} key={item.address} minimum={true} />
+          <Grid item md={3} key={item.id}>
+            <NFTToken item={item} minimum={true} />
           </Grid>
         ))}
       </Grid>

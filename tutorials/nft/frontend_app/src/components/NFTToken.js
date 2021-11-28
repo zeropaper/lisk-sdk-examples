@@ -80,7 +80,7 @@ export default function NFTToken(props) {
         <Typography variant="h6">NFT History</Typography>
         <Divider />
         {props.item.tokenHistory.map((base32UIAddress) => (
-          <dl className={classes.propertyList}>
+          <dl className={classes.propertyList} key={base32UIAddress}>
             <li>
               <dd>
                 <Link
